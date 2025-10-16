@@ -25,10 +25,23 @@ window.onload = function() {
             //condition ? expressionIfTrue : expressionIfFalse.
             }
         });
-    });
-}
+ 
         //Change Style When mouse is moved over square
                 //hover from .css file
+        //Change Style When mouse is moved over square
+            //hover from .css file
+        square.addEventListener('mouseover',()=> {
+            if (boardlayout[placement] === null && !square.textContent){
+                square.classList.add('hover');
+            }
+        });
+        square.addEventListener('mouseout',()=> {
+            square.classList.remove('hover');
+            
+        });
+        
+    });
+}
 
         //Check for winner and update
                 //if 3xs = X is winner or if 3Os = O is winner
