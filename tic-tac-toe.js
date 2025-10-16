@@ -8,15 +8,18 @@ window.onload = function() {
     const statusmsg = document.getElementById('status')
     //displays msgs
 
+    const newgame= document.querySelector('.btn');
+
     let currentperson = "X" //first person is always X
     let boardlayout = Array(9).fill(null); //tracking board
+    let gameover = false;
 
     squares.forEach((square,placement) => {square.classList.add("square");
         //square class to each grid
 
          //Update board
     square.addEventListener('click',() => {
-        if (boardlayout[placement] ==null){
+        if (!gameover && boardlayout[placement] ==null){
             //Only adds X or O if square is empty
 
             boardlayout[placement] = currentperson; //square position for player
@@ -28,11 +31,18 @@ window.onload = function() {
                 statusmsg.textContent = `CONGRATULATIONS! ${winner} is the Winner`; //use backticks 
                 //if 3xs = X is winner or if 3Os = O is winner 
                 statusmsg.classList.add("you-won");
+                gameover = true;
+                 //no more plays allowed
+            }
+            else if ( !boardlayout.includes(null)){
+                statusmsg.textContent = "UH OH! Its a draw!"
+                gameover= true;
             }
             else{
                 currentperson = currentperson === "X"?"O": "X";
                 //Switch person after 
                 //condition ? expressionIfTrue : expressionIfFalse.
+                //no more plays allowed
             }
 
             }
@@ -51,6 +61,27 @@ window.onload = function() {
             square.classList.remove('hover');
             
         });
+
+        //restart game
+            //New Game Button - Just want a restart regularly
+        newgame.addEventListener('click',() =>{
+            //reset board itself
+            boardlayout = Array(9).fill(null); 
+
+            squares.forEach(square => {
+                square.textContent ="";
+                square.classList.remove ("X","O");
+                //clear all the squared from X or O
+            });
+            statusmsg.textContent = "Click a square to play again";
+            statusmsg.classList.remove("you-won");
+            //clear messages sent ou
+
+            currentperson = "X";
+            gameover = false;
+            //reset to OG
+
+        });
         
 
  //Check for winner and update
@@ -61,7 +92,7 @@ window.onload = function() {
                 [0,4,8],[2,4,6] //winning diagonally
             ];
             for(let win of winningcriteria){
-                
+
                 const [w1,w2,w3] = win; // meaning for first one w1 = 0 w2 =1 and w3 = 2
                 //for (initializin; condtion, afterthought) let allows block scoping
 
@@ -75,15 +106,13 @@ window.onload = function() {
             }
             return null; //no winner
         };
-        
+
+    
 
   });
 }
 
-        //restart game
-            //New Game Button - Just want a restart regularly
-
-                    //Automatic new game button 
+    
 
             
 
