@@ -40,6 +40,7 @@ window.onload = function() {
             }
             else{
                 currentperson = currentperson === "X"?"O": "X";
+                statusmsg.textContent = `It is ${currentperson} turn`;
                 //Switch person after 
                 //condition ? expressionIfTrue : expressionIfFalse.
                 //no more plays allowed
